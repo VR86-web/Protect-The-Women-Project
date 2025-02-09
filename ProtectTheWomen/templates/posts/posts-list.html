@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="vizew-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home"
+                                                                                      aria-hidden="true"></i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Posts list</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Archive List Posts Area Start ##### -->
+    <div class="vizew-archive-list-posts-area mb-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+
+
+                    <!-- Single Post Area -->
+                    <div class="single-post-area style-2">
+                        <div class="row align-items-center">
+
+                            <!-- Post Content -->
+                            {% for post in posts %}
+                                <div class="post-content mt-0">
+
+
+                                <a href="{% url 'single-post' pk=post.pk %}"
+                                   class="post-title mb-2">{{ post.title }}</a>
+                                <p class="post-content">{{ post.content }}  </p>
+                                <div class="post-meta d-flex align-items-center mb-2">
+                                    <a href="{% url 'single-post' pk=post.pk %}"
+                                       class="post-author">{{ post.author }}</a>
+
+                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                    <a href="{% url 'single-post' pk=post.pk %}"
+                                       class="post-date">{{ post.created_at }}</a>
+
+                                </div>
+
+                                <div class="post-meta d-flex">
+                                    <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 32</a>
+                                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 42</a>
+                                   
+                                </div>
+                            {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Pagination -->
+                <nav class="mt-50">
+                    
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous and page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                        {% elif page_obj.has_previous %}
+                         <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                         {% elif page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                       
+                    </ul>
+                </nav>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+    <!-- ##### Archive List Posts Area End ##### -->
+
+{% endblock %}

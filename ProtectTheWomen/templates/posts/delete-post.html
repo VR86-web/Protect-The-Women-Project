@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="vizew-login-area section-padding-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6">
+                    <div class="login-content">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h4>Please add Your post!</h4>
+                            <div class="line"></div>
+                        </div>
+
+                        <form action="{% url 'delete-post' posts.pk%}" method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="btn vizew-btn w-100 mt-30">Delete post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Login Area End ##### -->
+
+{% endblock %}
