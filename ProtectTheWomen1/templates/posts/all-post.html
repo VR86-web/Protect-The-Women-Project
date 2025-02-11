@@ -154,7 +154,7 @@
                                 class="tags-share-box center-box d-flex text-center justify-content-between border-top border-bottom py-3">
 
                                 <span class="single-comment-o"><i class="fa fa-comment-o"></i>0 comment</span>
-                                        <span href="#" class="single-comment-o"><i class="fa fa-comment-o"></i>Delete Post</span>
+                                        <a href="{% url 'delete-post' single_post.pk%}" class="single-comment-o"><i class="fa fa-comment-o"></i>Delete Post</a>
                                         <a href="{% url 'update-post' single_post.pk%}"  class="single-comment-o"><i class="fa fa-comment-o"></i>Update Post</a>
 
                                 <div class="post-share">
@@ -162,60 +162,42 @@
                                     <a class="penci-post-like single-like-button"><i class="ti-heart"></i></a>
                                 </div>
                             </div>
+                                   
                                      <div class="comment-area my-5">
-                        <h3 class="mb-4 text-center">2 Comments</h3>
+                                    
+                        <h3 class="mb-4 text-center">{{ single_post.comments.count}} Comments</h3>
+                                      {% for comment in single_post.comments.all %}        
                         <div class="comment-area-box media">
-                            <img alt="" src="images/blog-user-2.jpg" class="img-fluid float-left mr-3 mt-2">
+                            <img alt="" src="{% static 'images/blog-user-2.jpg' %}" class="img-fluid float-left mr-3 mt-2">
 
                             <div class="media-body ml-4">
-                                <h4 class="mb-0">Micle harison </h4>
+                                <h4 class="mb-0">{{ comment.author }} </h4>
                                 <span class="date-comm font-sm text-capitalize text-color"><i
-                                        class="ti-time mr-2"></i>June 7, 2019 </span>
+                                        class="ti-time mr-2"></i>{{ comment.created_at }} </span>
 
                                 <div class="comment-content mt-3">
-                                    <p>Lorem ipsum dolor sit amet, usu ut perfecto postulant deterruisset, libris causae
-                                        volutpat at est, ius id modus laoreet urbanitas. Mel ei delenit dolores.</p>
+                                    <p>{{ comment.content }}</p>
                                 </div>
                                 <div class="comment-meta mt-4 mt-lg-0 mt-md-0">
                                     <a href="#" class="text-underline ">Reply</a>
                                 </div>
                             </div>
+                        {% endfor %}
                         </div>
-
-                        <div class="comment-area-box media mt-5">
-                            <img alt="" src="images/blog-user-3.jpg" class="mt-2 img-fluid float-left mr-3">
-
-                            <div class="media-body ml-4">
-                                <h4 class="mb-0 ">John Doe </h4>
-                                <span class="date-comm font-sm text-capitalize text-color"><i
-                                        class="ti-time mr-2"></i>June 7, 2019 </span>
-
-                                <div class="comment-content mt-3">
-                                    <p>Some consultants are employed indirectly by the client via a consultancy staffing
-                                        company. </p>
-                                </div>
-                                <div class="comment-meta mt-4 mt-lg-0 mt-md-0">
-                                    <a href="#" class="text-underline">Reply</a>
-                                </div>
-                            </div>
-                        </div>
+                                     
                     </div>
 
-                    <form class="comment-form mb-5 gray-bg p-5" id="comment-form">
+                    <form action="{% url 'comment' single_post.pk%}" method="post" class="comment-form mb-5 gray-bg p-5" id="comment-form">
+                    {% csrf_token %}
                         <h3 class="mb-4 text-center">Leave a comment</h3>
+                        
                         <div class="row">
                             <div class="col-lg-12">
-                                <textarea class="form-control mb-3" name="comment" id="comment" cols="30" rows="5"
-                                    placeholder="Comment"></textarea>
+                                {{ form.content }}
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="name" id="name" placeholder="Name:">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="mail" id="mail" placeholder="Email:">
+                                    {{ form.author }}
                                 </div>
                             </div>
                         </div>
@@ -223,6 +205,8 @@
                         <input class="btn btn-primary" type="submit" name="submit-contact" id="submit_contact"
                             value="Submit Message">
                     </form>
+                                    {% empty %}
+                    <h1 class="no-posts">No Posts</h1>
                                 {% endfor %}
                             </div>
                         </div>
