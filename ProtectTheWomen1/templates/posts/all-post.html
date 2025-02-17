@@ -76,7 +76,7 @@
 									</div>
 								</li>
                                 <li class="nav-item"><a href="posts/all-posts/" class="nav-link">Blog Posts</a></li>
-								
+
 
 								<li class="nav-item"><a href="../blog_templates/about.html" class="nav-link">About</a></li>
 								<li class="nav-item"><a href="../blog_templates/fashion.html" class="nav-link">Category</a></li>
@@ -145,11 +145,11 @@
                                 <span class="text-uppercase font-sm letter-spacing-1 mr-3">{{ single_post.author }}</span>
                                 <span class="text-uppercase font-sm letter-spacing-1">{{ single_post.created_at }}</span>
                             </div>
-                            
+
                         </div>
                         <div class="post-body">
                             <div class="entry-content">
-                                
+
                                     <div
                                 class="tags-share-box center-box d-flex text-center justify-content-between border-top border-bottom py-3">
 
@@ -162,11 +162,11 @@
                                     <a class="penci-post-like single-like-button"><i class="ti-heart"></i></a>
                                 </div>
                             </div>
-                                   
+
                                      <div class="comment-area my-5">
-                                    
+
                         <h3 class="mb-4 text-center">{{ single_post.comments.count}} Comments</h3>
-                                      {% for comment in single_post.comments.all %}        
+                                      {% for comment in single_post.comments.all %}
                         <div class="comment-area-box media">
                             <img alt="" src="{% static 'images/blog-user-2.jpg' %}" class="img-fluid float-left mr-3 mt-2">
 
@@ -184,13 +184,13 @@
                             </div>
                         {% endfor %}
                         </div>
-                                     
+
                     </div>
 
                     <form action="{% url 'comment' single_post.pk%}" method="post" class="comment-form mb-5 gray-bg p-5" id="comment-form">
                     {% csrf_token %}
                         <h3 class="mb-4 text-center">Leave a comment</h3>
-                        
+
                         <div class="row">
                             <div class="col-lg-12">
                                 {{ form.content }}
@@ -211,7 +211,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
 
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
