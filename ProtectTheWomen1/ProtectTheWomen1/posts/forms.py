@@ -1,12 +1,11 @@
 from django import forms
-
 from ProtectTheWomen1.posts.models import Post, Comment
 
 
 class PostBaseForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = "__all__"
+        exclude = ('user',)
 
 
 class PostCreateForm(PostBaseForm):
@@ -24,25 +23,19 @@ class PostDeleteForm(PostBaseForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('author', 'content',)
+        fields = ('content',)
 
         labels = {
-            'author': '',
             'content': '',
         }
 
         error_messages = {
-            'author': {
-                'required': 'Author name is required. Write it!',
-            },
             'content': {
                 'required': 'Content is required. Write it!',
             },
         }
 
         widgets = {
-            'author': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name:'}),
-
             'content': forms.Textarea(attrs={'class': 'form-control mb-3', 'placeholder': 'Write your comment...'}),
-
         }
+

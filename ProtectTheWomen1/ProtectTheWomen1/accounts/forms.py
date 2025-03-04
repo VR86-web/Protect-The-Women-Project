@@ -1,11 +1,15 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
+from ProtectTheWomen1.accounts.models import Profile
+
+UserModel = get_user_model()
 
 
 class CustomUserForm(UserCreationForm):
-    class Meta:
-        model = get_user_model()
+    class Meta(UserCreationForm.Meta):
+        model = UserModel
         fields = ("username", "email", "password1", "password2")
 
         labels = {
@@ -44,3 +48,32 @@ class CustomUserForm(UserCreationForm):
                            " one number, and one special character.",
             },
         }
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        model = UserModel
+        fields = ("username", "email")
+
+
+class ProfileBaseForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user',)
+
+        widgets = {
+            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+
+class ProfileEditForm(ProfileBaseForm):
+    pass
+
+
+class ProfileDeleteForm(ProfileBaseForm):
+    pass
+
+
+class ProfileCreateForm(ProfileBaseForm):
+    pass
+

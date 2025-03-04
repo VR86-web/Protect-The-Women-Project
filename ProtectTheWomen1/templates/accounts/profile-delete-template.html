@@ -26,10 +26,10 @@
     <!--search overlay end-->
 
 
-    <form action="{% url 'delete-post' post.pk %}" method="post" class="comment-form mb-5 gray-bg p-5"
+    <form action="{% url 'profile-delete' user.profile.pk %}" method="post" class="comment-form mb-5 gray-bg p-5"
           id="comment-form">
         {% csrf_token %}
-        <h3 class="mb-4 text-center">Your Post Will Be Deleted!</h3>
+        <h3 class="mb-4 text-center">Your Profile Will Be Deleted!</h3>
         {% for field in form %}
             <div class="row">
                 <div class="form-group">

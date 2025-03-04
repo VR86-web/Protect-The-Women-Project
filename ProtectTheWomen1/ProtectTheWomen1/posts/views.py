@@ -1,11 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from ProtectTheWomen1.posts.forms import PostCreateForm, PostDeleteForm, CommentForm
-from ProtectTheWomen1.posts.models import Post
+from ProtectTheWomen1.posts.models import Post, Like
 
 
 # Create your views here.
@@ -15,7 +16,16 @@ class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostCreateForm
     template_name = 'posts/add-post.html'
-    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.user = self.request.user
+        post.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('all-posts', kwargs={'pk': self.request.user.pk})
 
 
 class AllPostView(ListView):
@@ -28,14 +38,18 @@ class AllPostView(ListView):
         return context
 
 
-class UpdatePostView(UpdateView):
+class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = PostCreateForm
     model = Post
     template_name = 'posts/update-post.html'
     success_url = reverse_lazy('all-posts')
 
+    def test_func(self):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        return self.request.user == post.user
 
-class DeletePostView(DeleteView):
+
+class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'posts/delete-post.html'
     form_class = PostDeleteForm
@@ -46,8 +60,12 @@ class DeletePostView(DeleteView):
         post = Post.objects.get(pk=pk)
         return post.__dict__
 
+    def test_func(self):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        return self.request.user == post.user
 
-class CommentCreateView(View):
+
+class CommentCreateView(LoginRequiredMixin, View):
     def post(self, request, pk):
         post = get_object_or_404(Post, id=pk)
         form = CommentForm(request.POST)
@@ -55,9 +73,25 @@ class CommentCreateView(View):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.author = request.user
+            comment.user = request.user
+
             comment.save()
             return redirect('all-posts')
 
         return render(request, 'posts/all-post.html', {'post': post, 'form': form})
 
+
+@login_required
+def likes_functionality(request, pk: int):
+    liked_object = Like.objects.filter(
+        to_post_id=pk,
+        user=request.user
+    ).first()
+
+    if liked_object:
+        liked_object.delete()
+    else:
+        like = Like(to_post_id=pk, user=request.user)
+        like.save()
+
+    return redirect(request.META.get('HTTP_REFERER') + f'#{pk}')

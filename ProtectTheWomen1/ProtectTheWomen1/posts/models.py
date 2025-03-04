@@ -1,17 +1,22 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # Create your models here.
 
+UserModel = get_user_model()
+
 
 class Post(models.Model):
+
     title = models.CharField(
         max_length=100,
     )
 
     content = models.TextField()
 
-    author = models.CharField(
-        max_length=100,
+    user = models.ForeignKey(
+        to=UserModel,
+        on_delete=models.CASCADE,
     )
 
     created_at = models.DateTimeField(
@@ -26,6 +31,11 @@ class Comment(models.Model):
         related_name='comments',
     )
 
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
+
     author = models.CharField(
         max_length=100,
     )
@@ -34,4 +44,16 @@ class Comment(models.Model):
 
     created_at = models.DateTimeField(
         auto_now_add=True,
+    )
+
+
+class Like(models.Model):
+    to_post = models.ForeignKey(
+        to=Post,
+        on_delete=models.CASCADE,
+    )
+
+    user = models.ForeignKey(
+        to=UserModel,
+        on_delete=models.CASCADE,
     )

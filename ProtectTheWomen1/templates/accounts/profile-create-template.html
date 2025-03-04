@@ -25,11 +25,10 @@
     </div>
     <!--search overlay end-->
 
-
-    <form action="{% url 'delete-post' post.pk %}" method="post" class="comment-form mb-5 gray-bg p-5"
-          id="comment-form">
+<h3 class="mb-4 text-center">Create Profile</h3>
+    <form method="post" class="comment-form mb-5 gray-bg p-5" id="comment-form" enctype="multipart/form-data">
         {% csrf_token %}
-        <h3 class="mb-4 text-center">Your Post Will Be Deleted!</h3>
+        
         {% for field in form %}
             <div class="row">
                 <div class="form-group">
@@ -48,7 +47,7 @@
         {% endfor %}
         <div class="row">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Delete Post</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </div>
 

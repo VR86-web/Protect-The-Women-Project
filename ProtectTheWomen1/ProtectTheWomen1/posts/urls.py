@@ -8,6 +8,7 @@ urlpatterns = [
     path('all-posts/', AllPostView.as_view(), name='all-posts'),
     path('<int:pk>/', include([
         path('comment/', views.CommentCreateView.as_view(), name='comment'),
+        path('like/', views.likes_functionality, name='like'),
         path('update-post/', UpdatePostView.as_view(), name='update-post'),
         path('delete-post/', DeletePostView.as_view(), name='delete-post'),
     ])),
