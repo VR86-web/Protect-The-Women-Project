@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 
 from ProtectTheWomen1.posts.forms import PostCreateForm, PostDeleteForm, CommentForm
-from ProtectTheWomen1.posts.models import Post, Like
+from ProtectTheWomen1.posts.models import Post, Like, Comment
 
 
 # Create your views here.
@@ -79,6 +79,25 @@ class CommentCreateView(LoginRequiredMixin, View):
             return redirect('all-posts')
 
         return render(request, 'posts/all-post.html', {'post': post, 'form': form})
+
+
+@login_required
+def reply_to_comment(request, pk, comment_id):
+
+    if request.method == "POST":
+        post = get_object_or_404(Post, pk=pk)
+        parent_comment = get_object_or_404(Comment, pk=comment_id)
+        content = request.POST.get("content")
+
+        if content:
+            Comment.objects.create(
+                user=request.user,
+                post=post,
+                content=content,
+                parent=parent_comment
+            )
+
+    return redirect("all-posts")
 
 
 @login_required
