@@ -573,6 +573,71 @@ overlay search
   top: 3.5rem;
 }
 
+/* Container for all posts */
+.post-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;  /* Space between posts */
+    justify-content: flex-start; /* Align items to the start of the container */
+}
+
+/* Individual post styling */
+.post-item {
+    width: 100%; /* Full width on mobile */
+    max-width: 800px; /* Increase the maximum width of each post */
+    padding: 30px; /* Add more padding for spaciousness */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    word-wrap: break-word; /* Ensures text wraps inside the container */
+}
+
+/* Hover effect on posts */
+.post-item:hover {
+    transform: translateY(-5px);  /* Slight lift effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Post title styling */
+.post-item .post-title {
+    font-size: 1.75rem; /* Larger font size for the title */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Post content styling */
+.post-item p {
+    font-size: 1.2rem; /* Larger font size for the content */
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Post metadata (author and date) */
+.post-item .post-meta {
+    font-size: 1rem; /* Slightly larger font size for meta info */
+    color: #888;
+}
+
+/* Responsive design - Layout adjusts on different screen sizes */
+@media (min-width: 768px) {
+    .post-item {
+        width: 48%; /* Two posts per row on tablets and larger screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .post-item {
+        width: 30%; /* Three posts per row on desktops */
+    }
+}
+
+
+
+
+
+
 @media (max-width: 1366px) {
   .toggle-wrap.active {
     right: 10%;
@@ -1132,6 +1197,112 @@ overlay search
   font-size: 20px;
 }
 
+/* Make the main container span the entire width */
+.container-fluid {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Ensure the post container takes the full width as well */
+.post-container {
+    width: 100%;  /* Full width */
+    max-width: 100%; /* No max-width restriction */
+    margin: 0 auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure comment area fits inside the container */
+.comment-area {
+    width: 100%;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+/* Ensure comments fit perfectly */
+.comment-section {
+    width: 100%;
+    padding: 15px;
+}
+
+/* Style comment area */
+.comment-list {
+    width: 100%;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+
+/* Style individual comments */
+.comment-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Avatar styling */
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Flexbox for comment header */
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Comment author details */
+.comment-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Prevent comments from breaking */
+.comment-content {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Reply button */
+.reply-btn {
+    align-self: flex-start;
+}
+
+/* Hide reply form initially */
+.reply-form {
+    display: none;
+}
+
+.replied-to-message {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+
+
+
 .play-btn {
   line-height: 45px;
   position: absolute;
@@ -1349,12 +1520,78 @@ overlay search
 }
 
 .comment-area-box .media-body h4 {
-  font-size: 18px;
+  font-size: 50px;
 }
 
 .comment-form .form-control {
   background: #fff;
 }
+
+/* General form styling */
+.comment-form {
+    background: #f8f9fa; /* Light gray background */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Title */
+.comment-form h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Labels */
+.comment-form label {
+    font-weight: bold;
+    color: #555;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.comment-form input[type="text"],
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover and Focus Effects */
+.comment-form input[type="text"]:focus,
+.comment-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Submit Button */
+.comment-form button {
+    background: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.comment-form button:hover {
+    background: #0056b3;
+}
+
+/* Error Messages */
+.text-danger {
+    font-size: 14px;
+    color: red;
+    margin-top: 5px;
+}
+
 
 .text-underline {
   text-decoration: underline !important;
@@ -1441,6 +1678,8 @@ select.form-control:not([size]):not([multiple]) {
 .text-black {
   color: #000;
 }
+
+
 
 /*-------------------------------
 footer
@@ -1585,9 +1824,9 @@ body{
 .btn-primary{
 	border: none;
 	border-radius: 8px;
-	width: 80px;
+	width: 200px;
 	color: #DFEFFF;
-	transform: translateY(-22px);
+	transform: translateY(-10px);
 	background-color: #5778F9!important;
 }
 .btn-primary:focus{
@@ -1608,6 +1847,20 @@ body{
   height: 200px;
   width: 200px;
   object-fit: cover;
+}
+
+.small-profile-pic {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.small-profile-pic:hover {
+    transform: scale(1.5);
 }
 
 .cardbody-color{

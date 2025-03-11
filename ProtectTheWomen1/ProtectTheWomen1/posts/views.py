@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 
 from ProtectTheWomen1.posts.forms import PostCreateForm, PostDeleteForm, CommentForm
 from ProtectTheWomen1.posts.models import Post, Like, Comment
@@ -25,12 +25,13 @@ class AddPostView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('all-posts', kwargs={'pk': self.request.user.pk})
+        return reverse_lazy('all-posts')
 
 
 class AllPostView(ListView):
     model = Post
     template_name = 'posts/all-post.html'
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,6 +66,20 @@ class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.user
 
 
+class DetailPostView(LoginRequiredMixin, DetailView):
+    model = Post
+    template_name = 'posts/detail-post.html'
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context['is_creator'] = self.request.user == post.user
+        context['form'] = CommentForm()
+        context['comments'] = post.comments.all().order_by('-created_at')
+        return context
+
+
 class CommentCreateView(LoginRequiredMixin, View):
     def post(self, request, pk):
         post = get_object_or_404(Post, id=pk)
@@ -83,11 +98,11 @@ class CommentCreateView(LoginRequiredMixin, View):
 
 @login_required
 def reply_to_comment(request, pk, comment_id):
+    post = get_object_or_404(Post, pk=pk)
+    parent_comment = get_object_or_404(Comment, pk=comment_id)
 
-    if request.method == "POST":
-        post = get_object_or_404(Post, pk=pk)
-        parent_comment = get_object_or_404(Comment, pk=comment_id)
-        content = request.POST.get("content")
+    if request.method == 'POST':
+        content = request.POST.get('content')
 
         if content:
             Comment.objects.create(
@@ -96,8 +111,9 @@ def reply_to_comment(request, pk, comment_id):
                 content=content,
                 parent=parent_comment
             )
+        return redirect('post-detail', pk=post.pk)
 
-    return redirect("all-posts")
+    return redirect('all-posts')
 
 
 @login_required

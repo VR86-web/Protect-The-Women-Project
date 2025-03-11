@@ -18,16 +18,11 @@ class CustomUserForm(UserCreationForm):
             "password1": "",
             "password2": "",
         }
-        help_texts = {
-            "Please enter your username...": "",
-            "Please enter your email...": "",
-        }
 
         widgets = {
             "username": forms.TextInput(attrs={"class": "form-control", "placeholder": "Username:"}),
             "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": "Email:"}),
-            "password1": forms.PasswordInput(attrs={"class": "form-control",
-                "placeholder": "Password: (at least 8 characters long)"}),
+            "password1": forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Password: (at least 8 characters long)"}),
 
             "password2": forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Confirm Password:"}),
         }
@@ -76,4 +71,3 @@ class ProfileDeleteForm(ProfileBaseForm):
 
 class ProfileCreateForm(ProfileBaseForm):
     pass
-

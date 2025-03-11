@@ -1,46 +1,90 @@
-{% extends 'common_templates/base.html' %}
-
 {% load static %}
 
-{% block content %}
+<!DOCTYPE html>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2 class="text-center text-dark mt-5">Login Form</h2>
 
-                <div class="card my-5">
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
 
-                    <form method="post" class="card-body cardbody-color p-lg-5">
-                        {% csrf_token %}
-                        <h3 class="mb-4 text-center">Welcome Back!</h3>
-                        {{ form }}
+<html lang="en">
 
-                        <div class="text-center">
-                            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-                                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                                 width="200px" alt="profile">
-                        </div>
+<head>
+    <meta charset="utf-8">
+    <title>Protect the women - Personal Magazine blog Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-                        <div class="mb-3">
-                            <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
-                                   placeholder="User Name">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" id="password" placeholder="password">
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-color px-5 mb-5 w-100">Login</button>
-                        </div>
-                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not
-                            Registered? <a href="{% url 'register' %}" class="text-dark fw-bold"> Create an
-                                Account</a>
-                        </div>
-                    </form>
-                </div>
+    <!-- theme meta -->
+    <meta name="theme-name" content="revolve"/>
 
+    <!--Favicon-->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <!-- THEME CSS
+    ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Themify -->
+    <link rel="stylesheet" href="{% static 'plugins/themify/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick.css' %}">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/magnific-popup/magnific-popup.css' %}">
+    <!-- manin stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center text-dark mt-5">Login Form</h2>
+
+            <div class="card my-5">
+
+                <form method="post" class="card-body cardbody-color p-lg-5">
+                    {% csrf_token %}
+                    <h3 class="mb-4 text-center">Welcome Back!</h3>
+                    {{ form }}
+
+                    <div class="text-center">
+                        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                             class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                             width="200px" alt="profile">
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-color px-5 mb-5 w-100">Login</button>
+                    </div>
+                    <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not
+                        Registered? <a href="{% url 'register' %}" class="text-dark fw-bold"> Create an
+                            Account</a>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
+</div>
 
-{% endblock %}
+<script src="{% static 'plugins/jquery/jquery.js' %}"></script>
+<!-- Bootstrap jQuery -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/js/popper.min.js' %}"></script>
+<!-- Owl caeousel -->
+<script src="{% static 'plugins/owl-carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'plugins/slick-carousel/slick.min.js' %}"></script>
+<script src="{% static 'plugins/magnific-popup/magnific-popup.js' %}"></script>
+<!-- Instagram Feed Js -->
+<script src="{% static 'plugins/instafeed-js/instafeed.min.js' %}"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+<script src="{% static 'plugins/google-map/gmap.js' %}"></script>
+<!-- main js -->
+<script src="{% static 'js/custom.js' %}"></script>
