@@ -81,29 +81,27 @@
                             <li class="nav-item"><a href="{% url 'add-post' %}" class="nav-link">Add Post</a></li>
 
                             {% if request.user.is_authenticated %}
-                                {% if request.user.profile %}
+                                {% if has_profile %}
                                     <li class="nav-item">
                                         <a href="{% url 'profile-details' request.user.pk %}"
                                            class="nav-link">Profile</a>
                                     </li>
                                     <div class="sidebar-widget about mb-5 text-center p-3">
                                         <div class="about-author">
-                                            {% if user.profile.profile_picture.url %}
-                                                <img src='{{ user.profile.profile_picture.url }}'
+                                            {% if request.user.profile.profile_picture %}
+                                                <img src="{{ request.user.profile.profile_picture.url }}"
                                                      class="small-profile-pic" alt="profile">
-
-                                            {% else %}
-                                                <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-                                                     class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                                                     width="200px" alt="profile">
                                             {% endif %}
-                                        
+                                        </div>
+                                    </div>
                                 {% else %}
                                     <li class="nav-item">
                                         <a href="{% url 'profile-create' %}" class="nav-link">Create Profile</a>
                                     </li>
                                 {% endif %}
                             {% endif %}
+
+
                         </ul>
                     </div>
                 </nav>

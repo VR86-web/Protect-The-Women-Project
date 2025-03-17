@@ -27,6 +27,11 @@ class ProfileDetailsView(LoginRequiredMixin, DetailView):
     model = UserModel
     template_name = 'accounts/profile_template.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["has_profile"] = Profile.objects.filter(user=self.request.user).exists()
+        return context
+
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = Profile

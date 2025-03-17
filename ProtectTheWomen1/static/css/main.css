@@ -748,6 +748,12 @@ section,
   color: var(--default-color);
 }
 
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .about .swiper-pagination {
   position: absolute;
   bottom: 30px;
@@ -1440,6 +1446,13 @@ section,
 
 .portfolio-details .swiper-wrapper {
   height: auto;
+}
+
+.swiper-wrapper {
+    height: 350px; /* Adjust this as needed */
+}
+.swiper-slide {
+    height: 100%;
 }
 
 .portfolio-details .swiper-button-prev,

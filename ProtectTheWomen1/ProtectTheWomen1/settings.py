@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import cloudinary
+
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
 ] + MY_APPS
 
@@ -82,16 +86,20 @@ WSGI_APPLICATION = 'ProtectTheWomen1.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "protect_the_women.db",
+        "USER": "admin",
+        "PASSWORD": "password",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
-AUTHENTICATION_BACKENDS = [
-    'ProtectTheWomen1.accounts.authentication.EmailOrUsernameBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
+#AUTHENTICATION_BACKENDS = [
+#    'ProtectTheWomen1.accounts.authentication.EmailOrUsernameBackend',
+#   'django.contrib.auth.backends.ModelBackend',
+#]
 
 
 # Password validation
@@ -135,6 +143,20 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': "dsx0mklaf",
+    'API_KEY': "113994615793432",
+    'API_SECRET': '3X7crqp3zIBcv4iMHxRxgzwAEqI',
+}
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET']
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

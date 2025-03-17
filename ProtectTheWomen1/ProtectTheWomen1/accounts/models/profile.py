@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
@@ -36,8 +37,8 @@ class Profile(models.Model):
         null=True,
     )
 
-    profile_picture = models.ImageField(
-        upload_to='profile_pictures/',
+    profile_picture = CloudinaryField(
+        'profile_picture',
         blank=True,
         null=True,
     )
