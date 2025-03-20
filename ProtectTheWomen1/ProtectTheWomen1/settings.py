@@ -96,10 +96,10 @@ DATABASES = {
     }
 }
 
-#AUTHENTICATION_BACKENDS = [
-#    'ProtectTheWomen1.accounts.authentication.EmailOrUsernameBackend',
-#   'django.contrib.auth.backends.ModelBackend',
-#]
+AUTHENTICATION_BACKENDS = [
+    'ProtectTheWomen1.accounts.authentication.EmailOrUsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 # Password validation

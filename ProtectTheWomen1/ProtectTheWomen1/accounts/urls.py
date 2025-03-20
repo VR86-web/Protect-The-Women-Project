@@ -2,7 +2,8 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
-from ProtectTheWomen1.accounts.views import UserRegisterView, UserLoginView, ProfileDetailsView, ProfileEditView, \
+from ProtectTheWomen1.accounts.views.user_views import UserRegisterView, UserLoginView
+from ProtectTheWomen1.accounts.views.profile_views import ProfileDetailsView, ProfileEditView, \
     ProfileDeleteView, ProfileCreateView
 
 urlpatterns = [

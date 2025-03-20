@@ -1,36 +1,17 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.views import LoginView
-from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 
-from ProtectTheWomen1.accounts.forms import CustomUserForm, ProfileEditForm, ProfileDeleteForm, ProfileCreateForm
+from ProtectTheWomen1.accounts.forms import ProfileEditForm, ProfileDeleteForm, ProfileCreateForm
 from ProtectTheWomen1.accounts.models import Profile
 
 UserModel = get_user_model()
 
-
-class UserLoginView(LoginView):
-    template_name = 'accounts/login.html'
-
-
-class UserRegisterView(CreateView):
-    model = UserModel
-    form_class = CustomUserForm
-    template_name = 'accounts/registration-template.html'
-    success_url = reverse_lazy('login')
-
-
 class ProfileDetailsView(LoginRequiredMixin, DetailView):
     model = UserModel
     template_name = 'accounts/profile_template.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["has_profile"] = Profile.objects.filter(user=self.request.user).exists()
-        return context
 
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):

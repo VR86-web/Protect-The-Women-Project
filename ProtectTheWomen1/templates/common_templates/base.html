@@ -81,27 +81,27 @@
                             <li class="nav-item"><a href="{% url 'add-post' %}" class="nav-link">Add Post</a></li>
 
                             {% if request.user.is_authenticated %}
-                                {% if has_profile %}
+                                {% if request.user.profile %}
                                     <li class="nav-item">
                                         <a href="{% url 'profile-details' request.user.pk %}"
                                            class="nav-link">Profile</a>
                                     </li>
                                     <div class="sidebar-widget about mb-5 text-center p-3">
                                         <div class="about-author">
-                                            {% if request.user.profile.profile_picture %}
-                                                <img src="{{ request.user.profile.profile_picture.url }}"
+                                            {% if user.profile.profile_picture %}
+                                                <img src='{{ user.profile.profile_picture.url }}'
                                                      class="small-profile-pic" alt="profile">
+
+                                            {% else %}
+                                                
                                             {% endif %}
-                                        </div>
-                                    </div>
+                                        
                                 {% else %}
                                     <li class="nav-item">
                                         <a href="{% url 'profile-create' %}" class="nav-link">Create Profile</a>
                                     </li>
                                 {% endif %}
                             {% endif %}
-
-
                         </ul>
                     </div>
                 </nav>
