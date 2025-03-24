@@ -210,9 +210,9 @@ a:focus {
 /* Input form */
 .form-control {
   box-shadow: none;
-  border: 1px solid transparent;
+  border: 1px solid #000;
   padding: 12px 20px;
-  background: #f0f1f4;
+  background: #fff;
   font-size: 14px;
   border-radius: 2px;
 }
@@ -1571,12 +1571,12 @@ overlay search
 
 /* Submit Button */
 .comment-form button {
-    background: #007bff;
+    background: #28a73e;
     color: white;
     padding: 12px 20px;
     border: none;
     font-size: 18px;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -1679,6 +1679,122 @@ select.form-control:not([size]):not([multiple]) {
   color: #000;
 }
 
+body{
+background:#eee;
+padding-top:20px;
+}
+.panel-shadow {
+    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+.panel-white {
+  border: 1px solid #dddddd;
+}
+.panel-white  .panel-heading {
+  color: #333;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.panel-white  .panel-footer {
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.post .post-heading {
+  height: 95px;
+  padding: 20px 15px;
+}
+.post .post-heading .avatar {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-right: 15px;
+}
+.post .post-heading .meta .title {
+  margin-bottom: 0;
+}
+.post .post-heading .meta .title a {
+  color: black;
+}
+.post .post-heading .meta .title a:hover {
+  color: #aaaaaa;
+}
+.post .post-heading .meta .time {
+  margin-top: 8px;
+  color: #999;
+}
+.post .post-image .image {
+  width: 100%;
+  height: auto;
+}
+.post .post-description {
+  padding: 15px;
+}
+.post .post-description p {
+  font-size: 14px;
+}
+.post .post-description .stats {
+  margin-top: 20px;
+}
+.post .post-description .stats .stat-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+.post .post-description .stats .stat-item .icon {
+  margin-right: 8px;
+}
+.post .post-footer {
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+.post .post-footer .input-group-addon a {
+  color: #454545;
+}
+.post .post-footer .comments-list {
+  padding: 0;
+  margin-top: 20px;
+  list-style-type: none;
+}
+.post .post-footer .comments-list .comment {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+}
+.post .post-footer .comments-list .comment .avatar {
+  width: 35px;
+  height: 35px;
+}
+.post .post-footer .comments-list .comment .comment-heading {
+  display: block;
+  width: 100%;
+}
+.post .post-footer .comments-list .comment .comment-heading .user {
+  font-size: 14px;
+  font-weight: bold;
+  display: inline;
+  margin-top: 0;
+  margin-right: 10px;
+}
+.post .post-footer .comments-list .comment .comment-heading .time {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 0;
+  display: inline;
+}
+.post .post-footer .comments-list .comment .comment-body {
+  margin-left: 50px;
+}
+.post .post-footer .comments-list .comment > .comments-list {
+  margin-left: 50px;
+}
+
+.toggle-password i {
+  color: #333; /* Dark gray for better visibility */
+  font-size: 18px; /* Adjust icon size */
+}
+
+.toggle-password:hover i {
+  color: #007bff; /* Blue color on hover */
+}
 
 
 /*-------------------------------
@@ -1818,7 +1934,8 @@ body{
 	width: 400px;
 	border: none;
 	border-radius: 20px;
-	margin-top: 25%;
+	margin-top: 1%;
+   margin-left: 370px;
 }
 
 .btn-primary{
@@ -1864,7 +1981,7 @@ body{
 }
 
 .cardbody-color{
-  background-color: #ebf2fa;
+  background-color: #fff;
 }
 
 a{

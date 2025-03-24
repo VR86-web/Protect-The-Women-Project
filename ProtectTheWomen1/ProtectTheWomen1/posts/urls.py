@@ -9,7 +9,7 @@ urlpatterns = [
     path('post/<int:pk>/', DetailPostView.as_view(), name='post-detail'),
     path('<int:pk>/', include([
         path('comment/', views.CommentCreateView.as_view(), name='comment'),
-        path('comment/<int:comment_id>/reply/', views.reply_to_comment, name='reply'),  # Updated to include both post.pk and comment.pk
+        path('comment/<int:comment_id>/reply/', views.reply_to_comment, name='reply'),
         path('like/', views.likes_functionality, name='like'),
         path('update-post/', UpdatePostView.as_view(), name='update-post'),
         path('delete-post/', DeletePostView.as_view(), name='delete-post'),

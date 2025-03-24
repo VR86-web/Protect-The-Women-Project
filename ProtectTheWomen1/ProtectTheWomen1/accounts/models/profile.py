@@ -2,6 +2,7 @@ from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from django_countries.fields import CountryField
 
 UserModel = get_user_model()
 
@@ -26,15 +27,15 @@ class Profile(models.Model):
     )
 
     date_of_birth = models.DateField(
-        auto_now=True,
         blank=True,
         null=True,
     )
 
-    country = models.CharField(
-        max_length=50,
+    country = CountryField(
+        max_length=3,
         blank=True,
         null=True,
+        blank_label="Select a country"
     )
 
     profile_picture = CloudinaryField(

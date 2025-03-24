@@ -11,7 +11,7 @@ UserModel = get_user_model()
 
 class ProfileDetailsView(LoginRequiredMixin, DetailView):
     model = UserModel
-    template_name = 'accounts/profile_template.html'
+    template_name = 'accounts/profile-template.html'
 
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):

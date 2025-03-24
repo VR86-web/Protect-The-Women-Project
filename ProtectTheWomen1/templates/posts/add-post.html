@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<!--search overlay start-->
+<!-- Search Overlay Start -->
 <div class="search-wrap">
     <div class="overlay">
         <form action="#" class="search-form">
@@ -23,36 +23,56 @@
         </form>
     </div>
 </div>
-<!--search overlay end-->
+<!-- Search Overlay End -->
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post" class="comment-form mb-5 gray-bg p-5" id="comment-form">
+                {% csrf_token %}
+                <h3 class="mb-4 text-center">Please Add Your Post Here!</h3>
 
-	<form method="post" class="comment-form mb-5 gray-bg p-5" id="comment-form">
-        {% csrf_token %}
-        <h3 class="mb-4 text-center">Please add Your Post Here!</h3>
-        {% for field in form %}
-        <div class="row">
-        <div class="form-group">
-        <div class="col-md-6">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    {% for error in field.errors %}
+                <!-- Title Field -->
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}" class="font-weight-bold">Title:</label>
+                    <input type="text" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}" class="form-control" placeholder="Enter post title">
+                    {% for error in form.title.errors %}
                         <p class="text-danger">{{ error }}</p>
                     {% endfor %}
-                {% endif %}
-        </div>
-            </div>
-        </div>
+                </div>
 
-        {% endfor %}
-    <div class="row">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <!-- Content Field -->
+                <div class="form-group">
+                    <label for="{{ form.content.id_for_label }}" class="font-weight-bold">Content:</label>
+                    <textarea name="{{ form.content.name }}" id="{{ form.content.id_for_label }}" class="form-control" rows="5" placeholder="Write your content here..."></textarea>
+                    {% for error in form.content.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Other Fields -->
+                {% for field in form %}
+                    {% if field.name != "title" and field.name != "content" %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
-
-	</form>
+</div>
 
 {% endblock %}
+
 
 

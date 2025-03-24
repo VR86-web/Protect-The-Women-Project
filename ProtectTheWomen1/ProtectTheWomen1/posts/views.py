@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 
@@ -43,7 +43,9 @@ class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = PostCreateForm
     model = Post
     template_name = 'posts/update-post.html'
-    success_url = reverse_lazy('all-posts')
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.object.pk})
 
     def test_func(self):
         post = get_object_or_404(Post, pk=self.kwargs['pk'])
@@ -76,7 +78,7 @@ class DetailPostView(LoginRequiredMixin, DetailView):
         post = self.get_object()
         context['is_creator'] = self.request.user == post.user
         context['form'] = CommentForm()
-        context['comments'] = post.comments.all().order_by('-created_at')
+        context['comments'] = post.comments.filter(parent__isnull=True).order_by('-created_at')
         return context
 
 
@@ -89,9 +91,8 @@ class CommentCreateView(LoginRequiredMixin, View):
             comment = form.save(commit=False)
             comment.post = post
             comment.user = request.user
-
             comment.save()
-            return redirect('all-posts')
+            return redirect("{}#comment-{}".format(reverse('post-detail', kwargs={'pk': post.pk}), comment.pk))
 
         return render(request, 'posts/all-post.html', {'post': post, 'form': form})
 
