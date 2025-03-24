@@ -1796,6 +1796,10 @@ padding-top:20px;
   color: #007bff; /* Blue color on hover */
 }
 
+img.img-fluid {
+    background: transparent;
+}
+
 
 /*-------------------------------
 footer
