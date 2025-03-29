@@ -1,133 +1,79 @@
+{% extends 'common_templates/base-without-navbar.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
+{% block content %}
+    <script src="{% static 'js/toggle-password.js' %}"></script>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <div class="login-background" style="background-image: url('{% static 'images/spring_pic_2.jpg' %}');">
+        <div class="row w-50">
+            <div class="col-md-6 offset-md-3 mx-auto">
+                <h2 class="text-center text-dark mt-5">Registration</h2>
+                <div class="text-center mb-5 text-dark"></div>
+                <div class="comment-form">
 
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
+                    <form method="post" class="card-body p-lg-5">
+                        {% csrf_token %}
 
-<html lang="en">
+                        <!-- Username Field -->
+                        <div class="mb-3">
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="text-danger">
+                                    {{ form.username.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
 
-<head>
-    <meta charset="utf-8">
-    <title>Protect the women - Personal Magazine blog Template</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                        <!-- Email Field -->
+                        <div class="mb-3 ">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger">
+                                    {{ form.email.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
 
-    <!-- theme meta -->
-    <meta name="theme-name" content="revolve"/>
-
-    <!--Favicon-->
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-
-    <!-- THEME CSS
-    ================================================== -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
-    <!-- Themify -->
-    <link rel="stylesheet" href="{% static 'plugins/themify/css/themify-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick-theme.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick.css' %}">
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl.theme.default.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/magnific-popup/magnific-popup.css' %}">
-    <!-- manin stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h2 class="text-center text-dark mt-5">Registration</h2>
-            <div class="text-center mb-5 text-dark"></div>
-            <div class="comment-form">
-                
-                <form method="post" class="card-body p-lg-5">
-                    {% csrf_token %}
-
-                    <!-- Username Field -->
-                    <div class="mb-3">
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
-                        {% if form.username.errors %}
+                        <!-- Password 1 Field -->
+                        <div class="mb-3 input-group">
+                            {{ form.password1.label_tag }}
+                            {{ form.password1 }}
+                            <button type="button" class="btn btn-outline-secondary toggle-password">
+                                   <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                        {% if form.password1.errors %}
                             <div class="text-danger">
-                                {{ form.username.errors.0 }}
+                                {{ form.password1.errors.0 }}
                             </div>
                         {% endif %}
-                    </div>
 
-                    <!-- Email Field -->
-                    <div class="mb-3">
-                        {{ form.email.label_tag }}
-                        {{ form.email }}
-                        {% if form.email.errors %}
+                        <!-- Password 2 Field -->
+                        <div class="mb-3 input-group">
+                            {{ form.password2.label_tag }}
+                            {{ form.password2 }}
+                            <button type="button" class="btn btn-outline-secondary toggle-password">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                        {% if form.password2.errors %}
                             <div class="text-danger">
-                                {{ form.email.errors.0 }}
+                                {{ form.password2.errors.0 }}
                             </div>
                         {% endif %}
-                    </div>
 
-                    <!-- Password 1 Field -->
-                    <div class="mb-3 input-group">
-                        {{ form.password1.label_tag }}
-                        {{ form.password1 }}
-                        <button type="button" class="btn btn-outline-secondary toggle-password"
-                                onclick="togglePassword('id_password1', 'toggleIcon1')">
-                            <i id="toggleIcon1" class="fa fa-eye"></i>
-                        </button>
-                    </div>
-                    {% if form.password1.errors %}
-                        <div class="text-danger">
-                            {{ form.password1.errors.0 }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success mr-2">Register</button>
                         </div>
-                    {% endif %}
 
-                    <!-- Password 2 Field -->
-                    <div class="mb-3 input-group">
-                        {{ form.password2.label_tag }}
-                        {{ form.password2 }}
-                        <button type="button" class="btn btn-outline-secondary toggle-password"
-                                onclick="togglePassword('id_password2', 'toggleIcon2')">
-                            <i id="toggleIcon2" class="fa fa-eye"></i>
-                        </button>
-                    </div>
-                    {% if form.password2.errors %}
-                        <div class="text-danger">
-                            {{ form.password2.errors.0 }}
-                        </div>
-                    {% endif %}
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-color px-5 mb-5 w-100">Register</button>
-                    </div>
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-<script src="{% static 'plugins/jquery/jquery.js' %}"></script>
-<!-- Bootstrap jQuery -->
-<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'plugins/bootstrap/js/popper.min.js' %}"></script>
-<!-- Owl caeousel -->
-<script src="{% static 'plugins/owl-carousel/owl.carousel.min.js' %}"></script>
-<script src="{% static 'plugins/slick-carousel/slick.min.js' %}"></script>
-<script src="{% static 'plugins/magnific-popup/magnific-popup.js' %}"></script>
-<!-- Instagram Feed Js -->
-<script src="{% static 'plugins/instafeed-js/instafeed.min.js' %}"></script>
-<!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-<script src="{% static 'plugins/google-map/gmap.js' %}"></script>
-<!-- main js -->
-<script src="{% static 'js/custom.js' %}"></script>
-<script src="{% static 'js/toggle-password.js' %}"></script>
+{% endblock %}

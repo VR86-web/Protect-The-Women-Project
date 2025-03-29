@@ -83,10 +83,10 @@ Version      : 1.0
 body,
 p {
   font-family: "Open Sans", sans-serif;
-  line-height: 26px;
-  font-size: 16px;
+  line-height: 23px;
+  font-size: 23px;
   text-rendering: optimizeLegibility;
-  color: #666;
+  color: #000000;
   font-weight: 400;
 }
 
@@ -240,7 +240,7 @@ blockquote {
   padding: 10px 30px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #fff;
+  color: #28a745;
   transition: 350ms;
   letter-spacing: 1px;
   font-size: 13px;
@@ -584,7 +584,7 @@ overlay search
 /* Individual post styling */
 .post-item {
     width: 100%; /* Full width on mobile */
-    max-width: 800px; /* Increase the maximum width of each post */
+    max-width: 1200px !important; /* Increase the maximum width of each post */
     padding: 30px; /* Add more padding for spaciousness */
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -1204,26 +1204,36 @@ overlay search
     padding-right: 0;
 }
 
-/* Ensure the post container takes the full width as well */
+
 .post-container {
-    width: 100%;  /* Full width */
-    max-width: 100%; /* No max-width restriction */
+    width: 140%;  /* Full width */
+    max-width: 140%; /* No max-width restriction */
     margin: 0 auto;
     padding: 40px;
-    background: #fff;
+    background: transparent;
     border-radius: 10px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Ensure comment area fits inside the container */
+.post-container {
+    width: 140%;  /* Full width */
+    max-width: 140%; /* No max-width restriction */
+    margin: 0 auto;
+    padding: 40px;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
 .comment-area {
     width: 100%;
     padding: 20px;
-    background: #f9f9f9;
+    background: transparent;
     border-radius: 8px;
 }
 
-/* Ensure comments fit perfectly */
+
 .comment-section {
     width: 100%;
     padding: 15px;
@@ -1523,15 +1533,26 @@ overlay search
   font-size: 50px;
 }
 
+.input-group input,
+.input-group .form-control {
+    width: 100%;
+}
+
+.comment-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
 .comment-form .form-control {
   background: #fff;
 }
 
-/* General form styling */
 .comment-form {
-    background: #f8f9fa; /* Light gray background */
+    background:transparent;
     border-radius: 10px;
-    padding: 30px;
+    padding: 0px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1571,7 +1592,7 @@ overlay search
 
 /* Submit Button */
 .comment-form button {
-    background: #28a73e;
+    background: #00408561;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -1681,7 +1702,7 @@ select.form-control:not([size]):not([multiple]) {
 
 body{
 background:#eee;
-padding-top:20px;
+padding-top:0px;
 }
 .panel-shadow {
     box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
@@ -1796,8 +1817,88 @@ padding-top:20px;
   color: #007bff; /* Blue color on hover */
 }
 
+
 img.img-fluid {
     background: transparent;
+}
+
+body {
+    background-image: url('static/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.login-background {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-dark {
+    color: #333333;
+}
+
+.move-up {
+    margin-top: -313px;
+}
+
+.login-background {
+    width: 100%;
+    height: 119vh;
+    background: url('static/images/background.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.login-background-scroll {
+    background-image: url("static/images/balloons pic.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevents overflow */
+}
+
+.comment-form-scroll {
+    max-height: 740px; /* Set a maximum height */
+    overflow-y: auto; /* Enables scrolling inside the container */
+    background: rgba(255, 255, 255, 0.2); /* Optional: Adds slight transparency */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.move-up {
+    margin-top: -313px;
+}
+
+.text-dark {
+    color: #333 !important;
+}
+
+.top-left-text {
+    position: absolute;
+    top: -300px; /* Adjust vertical position */
+    left: -100px; /* Adjust horizontal position */
+    width: 500px; /* Optional: set width for better readability */
+    text-align: left; /* Align text to the left */
+    color: black; /* Ensure it's visible on the background */
+    font-weight: bold; /* Make it more readable */
+}
+
+.background-image {
+    background-image: url("static/images/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 
@@ -1931,7 +2032,7 @@ footer
 
 
 body{
-	background-color: #E3E7F2;
+	 background-color: #fff;
 	font-family: 'Poppins', sans-serif;
 }
 .card{
@@ -1939,7 +2040,29 @@ body{
 	border: none;
 	border-radius: 20px;
 	margin-top: 1%;
-   margin-left: 370px;
+   margin-left: 70px;
+}
+
+.card-profile {
+    width: 400px;
+    border: none;
+    border-radius: 20px;
+    margin-top: -20%;
+    margin-left: 70px;
+    background: rgba(255, 255, 255, -0.2);
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-profile-edit {
+    width: 400px;
+    border: none;
+    border-radius: 20px;
+    margin-top: 17%;
+    margin-left: 70px;
+    background: rgba(255, 255, 255, -0.2);
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary{

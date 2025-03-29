@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 
@@ -9,9 +9,22 @@ from ProtectTheWomen1.accounts.models import Profile
 
 UserModel = get_user_model()
 
+
 class ProfileDetailsView(LoginRequiredMixin, DetailView):
-    model = UserModel
+    model = Profile
     template_name = 'accounts/profile-template.html'
+
+    class ProfileDetailsView(LoginRequiredMixin, DetailView):
+        model = Profile
+        template_name = 'accounts/profile-template.html'
+
+        def get_object(self, queryset=None):
+            profile = get_object_or_404(Profile, user=self.request.user)
+
+            if not profile.first_name and not profile.last_name and not profile.date_of_birth and not profile.country:
+                return redirect('profile-create')
+
+            return profile
 
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
@@ -39,16 +52,13 @@ class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == profile.user
 
 
-class ProfileCreateView(CreateView):
+class ProfileCreateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileCreateForm
     template_name = 'accounts/profile-create-template.html'
-    success_url = reverse_lazy('profile-details')
 
-    def form_valid(self, form):
-
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+    def get_object(self, queryset=None):
+        return self.request.user.profile
 
     def get_success_url(self):
-        return self.object.get_absolute_url()
+        return reverse_lazy('profile-details', kwargs={'pk': self.request.user.profile.pk})

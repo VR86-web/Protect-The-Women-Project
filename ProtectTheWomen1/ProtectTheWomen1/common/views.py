@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import BaseFormView
 
 from ProtectTheWomen1.accounts.forms import ProfileCreateForm
@@ -27,3 +27,8 @@ class HomePage(ListView, BaseFormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+class AboutView(TemplateView):
+    template_name = 'common_templates/about.html'
+

@@ -24,13 +24,21 @@
     <!-- Search overlay end -->
 
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-    <div class="container bootstrap snippets bootdey">
-        <div class="col-sm-8">
+
+
+    <div class="login-background-scroll" style="background-image: url('{% static 'images/balloons pic.jpg' %}');">
+        <div class="col-sm-8 comment-form-scroll">
             <div class="panel panel-white post panel-shadow">
                 <div class="post-heading">
                     <div class="pull-left image">
-                        <img src="{{ post.user.profile.profile_picture.url }}" class="img-circle avatar"
-                             alt="user profile image">
+                        {% if post.user.profile.profile_picture %}
+                            <img src="{{ post.user.profile.profile_picture.url }}" alt="profile_pic"
+                                 class="avatar"/>
+                        {% else %}
+                            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                                 class="avatar"
+                                 alt="avatar">
+                        {% endif %}
                     </div>
                     <div class="pull-left meta">
                         <div class="title h5">
@@ -47,9 +55,9 @@
                     <p>{{ post.content }}</p>
                     <div class="stats">
                         <div class="tags-share-box d-flex justify-content-between border-top border-bottom py-3">
-                                    <span class="single-comment-o">
-                                        <i class="fa fa-comment-o"></i> {{ comments|length }} Comments
-                                    </span>
+                            <span class="single-comment-o">
+                                <i class="fa fa-comment-o"></i> {{ comments|length }} Comments
+                            </span>
 
                             {% if is_creator %}
                                 <a href="{% url 'delete-post' post.pk %}" class="single-comment-o">
@@ -76,24 +84,31 @@
                             <input name="content" class="form-control" placeholder="Add a comment..." type="text"
                                    required>
                             <span class="input-group-addon">
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-edit"></i> Post
-            </button>
-        </span>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-edit"></i> Post
+                                </button>
+                            </span>
                         </div>
                     </form>
                     <a href="#" class="show-comments-btn" data-post-id="{{ post.pk }}">
                         Show Comments ({{ comments|length }})
                     </a>
-                    <div id="comments-{{ post.pk }}" class="comment-area my-5" style="display: none;">
+                    <div id="comments-{{ post.pk }}" class="comment-area my-5 comment-form-scroll"
+                         style="display: none;">
                         <h3 class="mb-4 text-center">Comments ({{ comments|length }})</h3>
 
                         <ul class="comments-list">
                             {% for comment in comments %}
                                 <li class="comment">
                                     <a class="pull-left" href="{% url 'profile-details' comment.user.pk %}">
-                                        <img class="avatar" src="{{ comment.user.profile.profile_picture.url }}"
-                                             alt="avatar">
+                                        {% if comment.user.profile_picture %}
+                                            <img src="{{ comment.user.profile_picture.url }}" alt="profile_pic"
+                                                 class="avatar"/>
+                                        {% else %}
+                                            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                                                 class="avatar"
+                                                 alt="avatar">
+                                        {% endif %}
                                     </a>
                                     <div class="comment-body">
                                         <div class="comment-heading">
@@ -130,9 +145,14 @@
                                         {% for reply in comment.replies.all %}
                                             <li class="comment">
                                                 <a class="pull-left" href="{% url 'profile-details' reply.user.pk %}">
-                                                    <img class="avatar"
-                                                         src="{{ reply.user.profile.profile_picture.url }}"
-                                                         alt="avatar">
+                                                    {% if reply.user.profile.profile_picture %}
+                                            <img src="{{ reply.user.profile.profile_picture.url }}" alt="profile_pic"
+                                                 class="avatar"/>
+                                        {% else %}
+                                            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                                                 class="avatar"
+                                                 alt="avatar">
+                                        {% endif %}
                                                 </a>
                                                 <div class="comment-body">
                                                     <div class="comment-heading">
@@ -151,7 +171,6 @@
                             {% endfor %}
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -159,6 +178,7 @@
 
     <script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
+
 
 
 

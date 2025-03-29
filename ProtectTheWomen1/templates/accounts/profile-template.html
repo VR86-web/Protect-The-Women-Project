@@ -5,37 +5,40 @@
 
 {% block content %}
 
-    <div class="container d-flex justify-content-center">
-        <div class="card p-3">
+     <div class="login-background" style="background-image: url('{% static 'images/fruits.jpg' %}');">
+        <div class="row justify-content-center card-profile p-3">
             <div class="media">
-                {% if object.profile.profile_picture %}
-                    <img src="{{ object.profile.profile_picture.url }}" alt="profile_pic" class="profile-image-pic"/>
+                {% if object.profile_picture %}
+                    <img src="{{ object.profile_picture.url }}" alt="profile_pic"
+                                         class="profile-image-pic img-thumbnail rounded-circle"/>
                 {% else %}
                     <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
                          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile picture">
                 {% endif %}
                 <div class="media-body">
-                    <h5 class="mt-2 mb-0">{{ object.profile.get_full_name }}</h5>
+                    <h5 class="mt-2 mb-0">{{ object.get_full_name }}</h5>
                     <div class="d-flex flex-row justify-content-between align-items-center">
-                        {% if object.profile.country %}
-                        <small class="text-muted">From: {{ object.profile.country }} <img src="{{ object.profile.country.flag}}" alt="flag" style="width: 20px; height: 15px;"/></small>
-                            
+                        {% if object.country %}
+                        <small class="text-muted">From: {{ object.country }} 
+                            <img src="{{ object.country.flag }}" alt="flag" style="width: 20px; height: 15px;"/>
+                        </small>
                         {% endif %}
                     </div>
                     <div class="d-flex flex-row justify-content-between align-items-center">
-                        <small class="text-muted">{{ object.profile.date_of_birth }}</small>
+                        <small class="text-muted">{{ object.date_of_birth }}</small>
                     </div>
                 </div>
             </div>
-            {% if request.user.pk == object.pk %}
+            {% if request.user == object.user %}
                 <div class="button-container">
-                    <a href="{% url 'profile-edit' request.user.pk %}" class="btn btn-success mr-2">Edit</a>
-                    <a href="{% url 'profile-delete' request.user.pk %}" class="btn btn-success mr-2">Delete</a>
+                    <a href="{% url 'profile-edit' object.pk %}" class="btn btn-success mr-2">Edit</a>
+                    <a href="{% url 'profile-delete' object.pk %}" class="btn btn-success mr-2">Delete</a>
                 </div>
             {% endif %}
         </div>
     </div>
 
 {% endblock %}
+
 
 
