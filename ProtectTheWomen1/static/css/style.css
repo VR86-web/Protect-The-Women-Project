@@ -1216,8 +1216,8 @@ overlay search
 }
 
 .post-container {
-    width: 140%;  /* Full width */
-    max-width: 140%; /* No max-width restriction */
+    width: 129%;  /* Full width */
+    max-width: 109%; /* No max-width restriction */
     margin: 0 auto;
     padding: 40px;
     background: transparent;
